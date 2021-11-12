@@ -1,11 +1,63 @@
-import React from "react";
+import React, { useState } from "react";
+import { Route } from "react-router";
+import Home from "./Components/Home";
+import Order from "./Components/Order";
+import orderSchema from "./orderSchema";
+import * as yup from 'yup'
+
+const initialOrderValues = {
+  name: '',
+  size: '',
+  topping1: false,
+  topping2: false,
+  special: ''
+}
+
+const initialError = {
+  name: '',
+}
+
 
 const App = () => {
+  
+  const [orderValues, setOrderValues] = useState(initialOrderValues)
+  const [errors, setErrors] = useState(initialError)
+
+  const validate = (name, value) => {
+    yup.reach(orderSchema, name).validate(value)
+      .then(() => setErrors({...errors, [name]: ''}))
+      .catch(err => setErrors({...errors, [name]: err.errors[0]}))
+  }
+
+  const inputChange = (name, value) => {
+    validate(name, value)
+    setOrderValues({ ...orderValues, [name]: value})
+  }
+
+  const inputSubmit = () => {
+    const record = {
+      name: orderValues.name.trim(),
+      size: orderValues.size,
+      topping1: orderValues.topping1,
+      topping2: orderValues.topping2,
+      special: orderValues.special.trim()
+    }
+    return record
+  }
+
   return (
     <>
-      <h1>Lambda Eats</h1>
-      <p>You can remove this code and create your own header</p>
+      <h1>Welcome To Lambda Eats!</h1>
+      
+      <Route exact path='/'>
+        <Home/>
+      </Route>
+      <Route path='/pizza'>
+        <Order values={orderValues} errors={errors} submit={inputSubmit} change={inputChange} />
+      </Route>
     </>
+
+  
   );
 };
 export default App;
