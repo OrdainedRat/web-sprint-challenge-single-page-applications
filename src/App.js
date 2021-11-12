@@ -9,14 +9,19 @@ import axios from "axios";
 const initialOrderValues = {
   name: '',
   size: '',
-  topping1: false,
-  topping2: false,
+  pepperoni: false,
+  ham: false,
+  bananaPeppers: false,
+  onions: false,
   special: ''
 }
 
 const initialError = {
   name: '',
+  size: '',
+  special: ''
 }
+  
 
 
 const App = () => {
@@ -53,11 +58,13 @@ const App = () => {
     const record = {
       name: orderValues.name.trim(),
       size: orderValues.size,
-      topping1: orderValues.topping1,
-      topping2: orderValues.topping2,
+      pepperoni: orderValues.pepperoni,
+      ham: orderValues.ham,
+      bananaPeppers: orderValues.bananaPeppers,
+      onions: orderValues.onions,
       special: orderValues.special.trim()
     }
-    return record
+   postRecord(record)
   }
 
   return (
