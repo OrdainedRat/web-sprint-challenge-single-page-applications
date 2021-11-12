@@ -65,7 +65,7 @@ export default function Order(props) {
                             checked={values.ham}
                         />
                     </label>
-                    <label> 
+                    <label>  Banana Peppers
                         <input
                             type='checkbox'
                             name='bananaPeppers'
@@ -73,7 +73,7 @@ export default function Order(props) {
                             checked={values.bananaPeppers}
                         />
                     </label>    
-                    <label> 
+                    <label> onions
                         <input
                             type='checkbox'
                             name='onions'
